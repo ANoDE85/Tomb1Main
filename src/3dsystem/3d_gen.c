@@ -553,13 +553,13 @@ const int16_t *calc_roomvert(const int16_t *obj_ptr)
         } else {
             int16_t clip_flags = 0;
             int32_t depth = zv >> W2V_SHIFT;
-            if (depth > DEPTH_Q_END) {
+            if (depth > HWR_GetDrawDistanceMax()) {
                 PhdVBuf[i].g = 0x1FFF;
                 clip_flags |= 16;
-            } else if (depth <= DEPTH_Q_START) {
+            } else if (depth <= HWR_GetDrawDistanceFade()) {
                 PhdVBuf[i].g = obj_ptr[3];
             } else {
-                PhdVBuf[i].g = obj_ptr[3] + depth - DEPTH_Q_START;
+                PhdVBuf[i].g = obj_ptr[3] + depth - HWR_GetDrawDistanceFade();
                 if (!IsWaterEffect) {
                     CLAMPG(PhdVBuf[i].g, 0x1FFF);
                 }

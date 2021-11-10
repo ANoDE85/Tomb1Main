@@ -149,8 +149,8 @@ void S_CalculateLight(int32_t x, int32_t y, int32_t z, int16_t room_num)
     }
 
     int32_t distance = PhdMatrixPtr->_23 >> W2V_SHIFT;
-    if (distance > DEPTH_Q_START) {
-        LsAdder += distance - DEPTH_Q_START;
+    if (distance > HWR_GetDrawDistanceFade()) {
+        LsAdder += distance - HWR_GetDrawDistanceFade();
         if (LsAdder > 0x1FFF) {
             LsAdder = 0x1FFF;
         }
@@ -161,8 +161,8 @@ void S_CalculateStaticLight(int16_t adder)
 {
     LsAdder = adder - 16 * 256;
     int32_t z_dist = PhdMatrixPtr->_23 >> W2V_SHIFT;
-    if (z_dist > DEPTH_Q_START) {
-        LsAdder += z_dist - DEPTH_Q_START;
+    if (z_dist > HWR_GetDrawDistanceFade()) {
+        LsAdder += z_dist - HWR_GetDrawDistanceFade();
     }
 }
 

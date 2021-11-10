@@ -40,8 +40,8 @@ void S_DrawSprite(
     int32_t y2 = PhdWinCenterY + (yv + (sprite->y2 << W2V_SHIFT)) / zp;
     if (x2 >= 0 && y2 >= 0 && x1 < PhdWinWidth && y1 < PhdWinHeight) {
         int32_t depth = zv >> W2V_SHIFT;
-        if (depth > DEPTH_Q_START) {
-            shade += depth - DEPTH_Q_START;
+        if (depth > HWR_GetDrawDistanceFade()) {
+            shade += depth - HWR_GetDrawDistanceFade();
             if (shade > 0x1FFF) {
                 return;
             }
@@ -72,8 +72,8 @@ void S_DrawSpriteRel(
     int32_t y2 = PhdWinCenterY + (yv + (sprite->y2 << W2V_SHIFT)) / zp;
     if (x2 >= 0 && y2 >= 0 && x1 < PhdWinWidth && y1 < PhdWinHeight) {
         int32_t depth = (zv >> W2V_SHIFT);
-        if (depth > DEPTH_Q_START) {
-            shade += depth - DEPTH_Q_START;
+        if (depth > HWR_GetDrawDistanceFade()) {
+            shade += depth - HWR_GetDrawDistanceFade();
             if (shade > 0x1FFF) {
                 return;
             }

@@ -200,6 +200,30 @@ static int8_t S_LoadScriptMeta(struct json_object_s *obj)
             json_array_get_number_double(tmp_arr, 2, GF.water_color.b);
     }
 
+    if (json_object_get_value(obj, "draw_distance_fade")) {
+        tmp_i = json_object_get_number_int(
+            obj, "draw_distance_fade", JSON_INVALID_NUMBER);
+        if (tmp_i == JSON_INVALID_NUMBER) {
+            LOG_ERROR("'draw_distance_fade' must be an integer");
+            return 0;
+        }
+        GF.draw_distance_fade = tmp_i;
+    } else {
+        GF.draw_distance_fade = 12288;
+    }
+
+    if (json_object_get_value(obj, "draw_distance_max")) {
+        tmp_i = json_object_get_number_int(
+            obj, "draw_distance_max", JSON_INVALID_NUMBER);
+        if (tmp_i == JSON_INVALID_NUMBER) {
+            LOG_ERROR("'draw_distance_max' must be an integer");
+            return 0;
+        }
+        GF.draw_distance_max = tmp_i;
+    } else {
+        GF.draw_distance_max = 20480;
+    }
+
     return 1;
 }
 
@@ -615,17 +639,35 @@ static int8_t S_LoadScriptLevels(struct json_object_s *obj)
             cur->demo = 0;
         }
 
+        tmp_i = json_object_get_number_int(
+            jlvl_obj, "draw_distance_fade", JSON_INVALID_NUMBER);
+        if (tmp_i != JSON_INVALID_NUMBER) {
+            cur->draw_distance_fade.override = true;
+            cur->draw_distance_fade.value = tmp_i;
+        } else {
+            cur->draw_distance_fade.override = false;
+        }
+
+        tmp_i = json_object_get_number_int(
+            jlvl_obj, "draw_distance_max", JSON_INVALID_NUMBER);
+        if (tmp_i != JSON_INVALID_NUMBER) {
+            cur->draw_distance_max.override = true;
+            cur->draw_distance_max.value = tmp_i;
+        } else {
+            cur->draw_distance_max.override = false;
+        }
+
         tmp_arr = json_object_get_array(jlvl_obj, "water_color");
         if (tmp_arr) {
-            cur->water_color_override = 1;
-            cur->water_color.r =
+            cur->water_color.override = true;
+            cur->water_color.value.r =
                 json_array_get_number_double(tmp_arr, 0, GF.water_color.r);
-            cur->water_color.g =
+            cur->water_color.value.g =
                 json_array_get_number_double(tmp_arr, 1, GF.water_color.g);
-            cur->water_color.b =
+            cur->water_color.value.b =
                 json_array_get_number_double(tmp_arr, 2, GF.water_color.b);
         } else {
-            cur->water_color_override = 0;
+            cur->water_color.override = false;
         }
 
         struct json_object_s *jlbl_strings_obj =

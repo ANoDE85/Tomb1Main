@@ -19,6 +19,8 @@ static bool HWR_IsTextureMode = false;
 static int32_t HWR_SelectedTexture = -1;
 static bool HWR_TextureLoaded[MAX_TEXTPAGES] = { false };
 static RGBF HWR_WaterColor = { 0 };
+static int32_t m_DrawDistanceFade;
+static int32_t m_DrawDistanceMax;
 
 static void HWR_EnableTextureMode(void);
 static void HWR_DisableTextureMode(void);
@@ -55,7 +57,27 @@ static void HWR_ApplyWaterEffect(float *r, float *g, float *b)
     }
 }
 
-void HWR_ChangeWaterColor(const RGBF *color)
+int32_t HWR_GetDrawDistanceFade()
+{
+    return m_DrawDistanceFade;
+}
+
+int32_t HWR_GetDrawDistanceMax()
+{
+    return m_DrawDistanceMax;
+}
+
+void HWR_SetDrawDistanceFade(const int32_t dist)
+{
+    m_DrawDistanceFade = dist;
+}
+
+void HWR_SetDrawDistanceMax(const int32_t dist)
+{
+    m_DrawDistanceMax = dist;
+}
+
+void HWR_SetWaterColor(const RGBF *color)
 {
     HWR_WaterColor.r = color->r;
     HWR_WaterColor.g = color->g;
