@@ -7,12 +7,12 @@
 
 #define MALLOC_SIZE 0x1000000 // 16 MB
 
-static char *GameMemoryPointer = NULL;
-static char *GameAllocMemPointer = NULL;
-static uint32_t GameAllocMemUsed = 0;
-static uint32_t GameAllocMemFree = 0;
+static char *m_GameMemoryPointer = NULL;
+static char *m_GameAllocMemPointer = NULL;
+static uint32_t m_GameAllocMemUsed = 0;
+static uint32_t m_GameAllocMemFree = 0;
 
-static const char *BufferNames[] = {
+static const char *m_BufferNames[] = {
     "Sprite Textures", // GBUF_TEXTURE_PAGES
     "Object Textures", // GBUF_OBJECT_TEXTURES
     "Mesh Pointers", // GBUF_MESH_POINTERS
@@ -56,26 +56,26 @@ static const char *BufferNames[] = {
 
 void init_game_malloc()
 {
-    GameMemoryPointer = malloc(MALLOC_SIZE);
-    if (!GameMemoryPointer) {
+    m_GameMemoryPointer = malloc(MALLOC_SIZE);
+    if (!m_GameMemoryPointer) {
         S_ExitSystem("ERROR: Could not allocate enough memory");
     }
-    memset(GameMemoryPointer, 0, MALLOC_SIZE);
+    memset(m_GameMemoryPointer, 0, MALLOC_SIZE);
 
-    GameAllocMemPointer = GameMemoryPointer;
-    GameAllocMemFree = MALLOC_SIZE;
-    GameAllocMemUsed = 0;
+    m_GameAllocMemPointer = m_GameMemoryPointer;
+    m_GameAllocMemFree = MALLOC_SIZE;
+    m_GameAllocMemUsed = 0;
 }
 
 void game_malloc_shutdown()
 {
-    if (GameMemoryPointer) {
-        free(GameMemoryPointer);
+    if (m_GameMemoryPointer) {
+        free(m_GameMemoryPointer);
     }
-    GameMemoryPointer = NULL;
-    GameAllocMemPointer = NULL;
-    GameAllocMemFree = 0;
-    GameAllocMemUsed = 0;
+    m_GameMemoryPointer = NULL;
+    m_GameAllocMemPointer = NULL;
+    m_GameAllocMemFree = 0;
+    m_GameAllocMemUsed = 0;
 }
 
 void *game_malloc(int32_t alloc_size, GAMEALLOC_BUFFER buf_index)
@@ -84,22 +84,22 @@ void *game_malloc(int32_t alloc_size, GAMEALLOC_BUFFER buf_index)
 
     aligned_size = (alloc_size + 3) & ~3;
 
-    if (aligned_size > GameAllocMemFree) {
+    if (aligned_size > m_GameAllocMemFree) {
         S_ExitSystemFmt(
-            "game_malloc(): OUT OF MEMORY %s %d", BufferNames[buf_index],
+            "game_malloc(): OUT OF MEMORY %s %d", m_BufferNames[buf_index],
             aligned_size);
     }
 
-    void *result = GameAllocMemPointer;
-    GameAllocMemFree -= aligned_size;
-    GameAllocMemUsed += aligned_size;
-    GameAllocMemPointer += aligned_size;
+    void *result = m_GameAllocMemPointer;
+    m_GameAllocMemFree -= aligned_size;
+    m_GameAllocMemUsed += aligned_size;
+    m_GameAllocMemPointer += aligned_size;
     return result;
 }
 
 void game_free(int32_t free_size, int32_t type)
 {
-    GameAllocMemPointer -= free_size;
-    GameAllocMemFree += free_size;
-    GameAllocMemPointer -= free_size;
+    m_GameAllocMemPointer -= free_size;
+    m_GameAllocMemFree += free_size;
+    m_GameAllocMemPointer -= free_size;
 }
