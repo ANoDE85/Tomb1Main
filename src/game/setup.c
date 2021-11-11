@@ -81,7 +81,7 @@
 #include "global/vars.h"
 #include "log.h"
 #include "specific/file.h"
-#include "specific/init.h"
+#include "specific/memory.h"
 #include "specific/output.h"
 #include "specific/sndpc.h"
 

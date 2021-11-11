@@ -6,7 +6,7 @@
 #include "game/control.h"
 #include "game/items.h"
 #include "global/vars.h"
-#include "specific/init.h"
+#include "specific/memory.h"
 
 void SetupMummy(OBJECT_INFO *obj)
 {

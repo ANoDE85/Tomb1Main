@@ -5,7 +5,7 @@
 #include "game/draw.h"
 #include "game/items.h"
 #include "global/vars.h"
-#include "specific/init.h"
+#include "specific/memory.h"
 
 static void OpenThatDoor(DOORPOS_DATA *d);
 static void ShutThatDoor(DOORPOS_DATA *d, ITEM_INFO *item);

@@ -6,7 +6,7 @@
 #include "global/vars.h"
 #include "global/vars_platform.h"
 #include "specific/hwr.h"
-#include "specific/init.h"
+#include "specific/memory.h"
 
 #include <stdlib.h>
 

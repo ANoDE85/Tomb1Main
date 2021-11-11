@@ -10,7 +10,7 @@
 #include "game/sound.h"
 #include "game/sphere.h"
 #include "global/vars.h"
-#include "specific/init.h"
+#include "specific/memory.h"
 #include "specific/output.h"
 
 void SetupLightningEmitter(OBJECT_INFO *obj)

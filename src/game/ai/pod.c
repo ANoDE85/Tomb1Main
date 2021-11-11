@@ -7,7 +7,7 @@
 #include "game/lot.h"
 #include "game/sound.h"
 #include "global/vars.h"
-#include "specific/init.h"
+#include "specific/memory.h"
 
 void SetupPod(OBJECT_INFO *obj)
 {

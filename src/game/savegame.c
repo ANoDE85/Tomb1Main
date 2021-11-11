@@ -13,6 +13,7 @@
 #include "global/const.h"
 #include "global/vars.h"
 #include "specific/init.h"
+#include "specific/memory.h"
 
 #include <stddef.h>
 

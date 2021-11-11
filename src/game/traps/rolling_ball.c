@@ -8,7 +8,7 @@
 #include "game/items.h"
 #include "game/sphere.h"
 #include "global/vars.h"
-#include "specific/init.h"
+#include "specific/memory.h"
 
 void SetupRollingBall(OBJECT_INFO *obj)
 {

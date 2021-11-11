@@ -13,6 +13,7 @@
 #include "specific/hwr.h"
 #include "specific/init.h"
 #include "specific/input.h"
+#include "specific/memory.h"
 #include "specific/smain.h"
 
 #include <dinput.h>
