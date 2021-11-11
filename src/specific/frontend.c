@@ -1,6 +1,7 @@
 #include "specific/frontend.h"
 
 #include "config.h"
+#include "game/memory.h"
 #include "global/const.h"
 #include "global/lib.h"
 #include "global/types.h"
@@ -13,7 +14,6 @@
 #include "specific/hwr.h"
 #include "specific/init.h"
 #include "specific/input.h"
-#include "specific/memory.h"
 #include "specific/smain.h"
 
 #include <dinput.h>
@@ -248,14 +248,14 @@ cleanup:
 
 int32_t S_PlayFMV(int32_t sequence, int32_t mode)
 {
-    S_Memory_Shutdown();
+    Memory_Shutdown();
 
     TempVideoAdjust(2);
     HWR_PrepareFMV();
 
     int32_t ret = WinPlayFMV(sequence, mode);
 
-    S_Memory_Init();
+    Memory_Init();
 
     HWR_FMVDone();
     TempVideoRemove();

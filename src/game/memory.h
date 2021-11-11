@@ -1,5 +1,5 @@
-#ifndef T1M_SPECIFIC_MEMORY_H
-#define T1M_SPECIFIC_MEMORY_H
+#ifndef T1M_GAME_MEMORY_H
+#define T1M_GAME_MEMORY_H
 
 #include <stdint.h>
 
@@ -45,9 +45,9 @@ typedef enum GAMEALLOC_BUFFER {
     GBUF_ROLLINGBALL_STUFF,
 } GAMEALLOC_BUFFER;
 
-void S_Memory_Init();
-void *S_Memory_Alloc(int32_t alloc_size, GAMEALLOC_BUFFER buf_index);
-void S_Memory_Free(int32_t free_size, int32_t type);
-void S_Memory_Shutdown();
+void Memory_Init();
+void *Memory_Alloc(int32_t alloc_size, GAMEALLOC_BUFFER buf_index);
+void Memory_Free(int32_t free_size, int32_t type);
+void Memory_Shutdown();
 
 #endif

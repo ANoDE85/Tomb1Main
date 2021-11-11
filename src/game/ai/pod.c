@@ -5,9 +5,9 @@
 #include "game/effects/body_part.h"
 #include "game/items.h"
 #include "game/lot.h"
+#include "game/memory.h"
 #include "game/sound.h"
 #include "global/vars.h"
-#include "specific/memory.h"
 
 void SetupPod(OBJECT_INFO *obj)
 {
@@ -69,7 +69,7 @@ void InitialisePod(int16_t item_num)
 
         InitialiseItem(bug_item_num);
 
-        item->data = S_Memory_Alloc(sizeof(int16_t), 0);
+        item->data = Memory_Alloc(sizeof(int16_t), 0);
         *(int16_t *)item->data = bug_item_num;
 
         LevelItemCount++;

@@ -1,6 +1,7 @@
 #include "specific/smain.h"
 
 #include "config.h"
+#include "game/memory.h"
 #include "global/vars.h"
 #include "global/vars_platform.h"
 #include "inject_util.h"
@@ -9,7 +10,6 @@
 #include "specific/clock.h"
 #include "specific/hwr.h"
 #include "specific/input.h"
-#include "specific/memory.h"
 #include "specific/shell.h"
 #include "specific/sndpc.h"
 

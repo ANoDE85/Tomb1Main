@@ -6,6 +6,7 @@
 #include "game/items.h"
 #include "game/lara.h"
 #include "game/lot.h"
+#include "game/memory.h"
 #include "game/objects/pickup.h"
 #include "game/objects/puzzle_hole.h"
 #include "game/traps/movable_block.h"
@@ -13,7 +14,6 @@
 #include "global/const.h"
 #include "global/vars.h"
 #include "specific/init.h"
-#include "specific/memory.h"
 
 #include <stddef.h>
 

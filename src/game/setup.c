@@ -43,6 +43,7 @@
 #include "game/items.h"
 #include "game/lara.h"
 #include "game/lot.h"
+#include "game/memory.h"
 #include "game/mnsound.h"
 #include "game/objects/boat.h"
 #include "game/objects/bridge.h"
@@ -81,7 +82,6 @@
 #include "global/vars.h"
 #include "log.h"
 #include "specific/file.h"
-#include "specific/memory.h"
 #include "specific/output.h"
 #include "specific/sndpc.h"
 
@@ -110,7 +110,7 @@ int32_t InitialiseLevel(int32_t level_num, GAMEFLOW_LEVEL_TYPE level_type)
         InitialiseLara();
     }
 
-    Effects = S_Memory_Alloc(NUM_EFFECTS * sizeof(FX_INFO), GBUF_EFFECTS);
+    Effects = Memory_Alloc(NUM_EFFECTS * sizeof(FX_INFO), GBUF_EFFECTS);
     InitialiseFXArray();
     InitialiseLOTArray();
 

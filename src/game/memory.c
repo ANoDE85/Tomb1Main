@@ -1,4 +1,4 @@
-#include "specific/memory.h"
+#include "game/memory.h"
 
 #include "specific/init.h"
 
@@ -53,7 +53,7 @@ static const char *m_BufferNames[] = {
     "Rolling Ball Stuff", // GBUF_ROLLINGBALL_STUFF
 };
 
-void S_Memory_Init()
+void Memory_Init()
 {
     m_GameMemoryPointer = malloc(MALLOC_SIZE);
     if (!m_GameMemoryPointer) {
@@ -65,7 +65,7 @@ void S_Memory_Init()
     m_GameAllocMemFree = MALLOC_SIZE;
 }
 
-void S_Memory_Shutdown()
+void Memory_Shutdown()
 {
     if (m_GameMemoryPointer) {
         free(m_GameMemoryPointer);
@@ -75,7 +75,7 @@ void S_Memory_Shutdown()
     m_GameAllocMemFree = 0;
 }
 
-void *S_Memory_Alloc(int32_t alloc_size, GAMEALLOC_BUFFER buf_index)
+void *Memory_Alloc(int32_t alloc_size, GAMEALLOC_BUFFER buf_index)
 {
     int32_t aligned_size;
 
@@ -83,7 +83,7 @@ void *S_Memory_Alloc(int32_t alloc_size, GAMEALLOC_BUFFER buf_index)
 
     if (aligned_size > m_GameAllocMemFree) {
         S_ExitSystemFmt(
-            "S_Memory_Alloc(): OUT OF MEMORY %s %d", m_BufferNames[buf_index],
+            "Memory_Alloc(): OUT OF MEMORY %s %d", m_BufferNames[buf_index],
             aligned_size);
     }
 
@@ -93,7 +93,7 @@ void *S_Memory_Alloc(int32_t alloc_size, GAMEALLOC_BUFFER buf_index)
     return result;
 }
 
-void S_Memory_Free(int32_t free_size, int32_t type)
+void Memory_Free(int32_t free_size, int32_t type)
 {
     m_GameAllocMemPointer -= free_size;
     m_GameAllocMemFree += free_size;

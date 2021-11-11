@@ -6,9 +6,9 @@
 #include "game/effects/blood.h"
 #include "game/game.h"
 #include "game/items.h"
+#include "game/memory.h"
 #include "game/sphere.h"
 #include "global/vars.h"
-#include "specific/memory.h"
 
 void SetupRollingBall(OBJECT_INFO *obj)
 {
@@ -24,7 +24,7 @@ void InitialiseRollingBall(int16_t item_num)
 {
     ITEM_INFO *item = &Items[item_num];
     GAME_VECTOR *old =
-        S_Memory_Alloc(sizeof(GAME_VECTOR), GBUF_ROLLINGBALL_STUFF);
+        Memory_Alloc(sizeof(GAME_VECTOR), GBUF_ROLLINGBALL_STUFF);
     item->data = old;
     old->x = item->pos.x;
     old->y = item->pos.y;

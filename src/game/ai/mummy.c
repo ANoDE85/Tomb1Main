@@ -5,8 +5,8 @@
 #include "game/collide.h"
 #include "game/control.h"
 #include "game/items.h"
+#include "game/memory.h"
 #include "global/vars.h"
-#include "specific/memory.h"
 
 void SetupMummy(OBJECT_INFO *obj)
 {
@@ -28,7 +28,7 @@ void InitialiseMummy(int16_t item_num)
     ITEM_INFO *item = &Items[item_num];
     item->touch_bits = 0;
     item->mesh_bits = 0xFFFF87FF;
-    item->data = S_Memory_Alloc(sizeof(int16_t), GBUF_MUMMY_HEAD_TURN);
+    item->data = Memory_Alloc(sizeof(int16_t), GBUF_MUMMY_HEAD_TURN);
     *(int16_t *)item->data = 0;
 }
 

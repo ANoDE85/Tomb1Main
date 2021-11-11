@@ -4,8 +4,8 @@
 #include "game/control.h"
 #include "game/draw.h"
 #include "game/items.h"
+#include "game/memory.h"
 #include "global/vars.h"
-#include "specific/memory.h"
 
 static void OpenThatDoor(DOORPOS_DATA *d);
 static void ShutThatDoor(DOORPOS_DATA *d, ITEM_INFO *item);
@@ -76,7 +76,7 @@ static void OpenThatDoor(DOORPOS_DATA *d)
 void InitialiseDoor(int16_t item_num)
 {
     ITEM_INFO *item = &Items[item_num];
-    DOOR_DATA *door = S_Memory_Alloc(sizeof(DOOR_DATA), GBUF_EXTRA_DOOR_STUFF);
+    DOOR_DATA *door = Memory_Alloc(sizeof(DOOR_DATA), GBUF_EXTRA_DOOR_STUFF);
     item->data = door;
 
     int32_t dx = 0;

@@ -7,10 +7,10 @@
 #include "game/draw.h"
 #include "game/game.h"
 #include "game/items.h"
+#include "game/memory.h"
 #include "game/sound.h"
 #include "game/sphere.h"
 #include "global/vars.h"
-#include "specific/memory.h"
 #include "specific/output.h"
 
 void SetupLightningEmitter(OBJECT_INFO *obj)
@@ -24,7 +24,7 @@ void SetupLightningEmitter(OBJECT_INFO *obj)
 
 void InitialiseLightning(int16_t item_num)
 {
-    LIGHTNING *l = S_Memory_Alloc(sizeof(LIGHTNING), 0);
+    LIGHTNING *l = Memory_Alloc(sizeof(LIGHTNING), 0);
     Items[item_num].data = l;
 
     if (Objects[Items[item_num].object_number].nmeshes > 1) {

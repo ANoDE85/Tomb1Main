@@ -2,6 +2,7 @@
 
 #include "3dsystem/phd_math.h"
 #include "game/game.h"
+#include "game/memory.h"
 #include "game/text.h"
 #include "global/lib.h"
 #include "global/vars.h"
@@ -11,7 +12,6 @@
 #include "specific/frontend.h"
 #include "specific/hwr.h"
 #include "specific/input.h"
-#include "specific/memory.h"
 #include "specific/smain.h"
 #include "specific/sndpc.h"
 
@@ -41,7 +41,7 @@ void S_ExitSystem(const char *message)
     while (Input.select) {
         S_UpdateInput();
     }
-    S_Memory_Shutdown();
+    Memory_Shutdown();
     HWR_ShutdownHardware();
     ShowFatalError(message);
 }
