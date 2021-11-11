@@ -12,45 +12,45 @@ static char *m_GameAllocMemPointer = NULL;
 static uint32_t m_GameAllocMemFree = 0;
 
 static const char *m_BufferNames[] = {
-    "Sprite Textures", // GBUF_TEXTURE_PAGES
-    "Object Textures", // GBUF_OBJECT_TEXTURES
-    "Mesh Pointers", // GBUF_MESH_POINTERS
-    "Meshes", // GBUF_MESHES
-    "Anims", // GBUF_ANIMS
-    "Structs", // GBUF_ANIM_CHANGES
-    "Ranges", // GBUF_ANIM_RANGES
-    "Commands", // GBUF_ANIM_COMMANDS
-    "Bones", // GBUF_ANIM_BONES
-    "Frames", // GBUF_ANIM_FRAMES
-    "Room Textures", // GBUF_ROOM_TEXTURES
-    "Room Infos", // GBUF_ROOM_INFOS
-    "Room Mesh", // GBUF_ROOM_MESH
-    "Room Door", // GBUF_ROOM_DOOR
-    "Room Floor", // GBUF_ROOM_FLOOR
-    "Room Lights", // GBUF_ROOM_LIGHTS
-    "Room Static Mesh Infos", // GBUF_ROOM_STATIC_MESH_INFOS
-    "Floor Data", // GBUF_FLOOR_DATA
-    "ITEMS!!", // GBUF_ITEMS
-    "Cameras", // GBUF_CAMERAS
-    "Sound FX", // GBUF_SOUND_FX
-    "Boxes", // GBUF_BOXES
-    "Overlaps", // GBUF_OVERLAPS
-    "GroundZone", // GBUF_GROUNDZONE
-    "FlyZone", // GBUF_FLYZONE
-    "Animating Texture Ranges", // GBUF_ANIMATING_TEXTURE_RANGES
-    "Cinematic Frames", // GBUF_CINEMATIC_FRAMES
-    "LoadDemo Buffer", // GBUF_LOADDEMO_BUFFER
-    "SaveDemo Buffer", // GBUF_SAVEDEMO_BUFFER
-    "Cinematic Effects", // GBUF_CINEMATIC_EFFECTS
-    "Mummy Head Turn", // GBUF_MUMMY_HEAD_TURN
-    "Extra Door stuff", // GBUF_EXTRA_DOOR_STUFF
-    "Effects_Array", // GBUF_EFFECTS
-    "Creature Data", // GBUF_CREATURE_DATA
-    "Creature LOT", // GBUF_CREATURE_LOT
-    "Sample Infos", // GBUF_SAMPLE_INFOS
-    "Samples", // GBUF_SAMPLES
-    "Sample Offsets", // GBUF_SAMPLE_OFFSETS
-    "Rolling Ball Stuff", // GBUF_ROLLINGBALL_STUFF
+    "Sprite Textures", // MEM_BUF_TEXTURE_PAGES
+    "Object Textures", // MEM_BUF_OBJECT_TEXTURES
+    "Mesh Pointers", // MEM_BUF_MESH_POINTERS
+    "Meshes", // MEM_BUF_MESHES
+    "Anims", // MEM_BUF_ANIMS
+    "Structs", // MEM_BUF_ANIM_CHANGES
+    "Ranges", // MEM_BUF_ANIM_RANGES
+    "Commands", // MEM_BUF_ANIM_COMMANDS
+    "Bones", // MEM_BUF_ANIM_BONES
+    "Frames", // MEM_BUF_ANIM_FRAMES
+    "Room Textures", // MEM_BUF_ROOM_TEXTURES
+    "Room Infos", // MEM_BUF_ROOM_INFOS
+    "Room Mesh", // MEM_BUF_ROOM_MESH
+    "Room Door", // MEM_BUF_ROOM_DOOR
+    "Room Floor", // MEM_BUF_ROOM_FLOOR
+    "Room Lights", // MEM_BUF_ROOM_LIGHTS
+    "Room Static Mesh Infos", // MEM_BUF_ROOM_STATIC_MESH_INFOS
+    "Floor Data", // MEM_BUF_FLOOR_DATA
+    "ITEMS!!", // MEM_BUF_ITEMS
+    "Cameras", // MEM_BUF_CAMERAS
+    "Sound FX", // MEM_BUF_SOUND_FX
+    "Boxes", // MEM_BUF_BOXES
+    "Overlaps", // MEM_BUF_OVERLAPS
+    "GroundZone", // MEM_BUF_GROUNDZONE
+    "FlyZone", // MEM_BUF_FLYZONE
+    "Animating Texture Ranges", // MEM_BUF_ANIMATING_TEXTURE_RANGES
+    "Cinematic Frames", // MEM_BUF_CINEMATIC_FRAMES
+    "LoadDemo Buffer", // MEM_BUF_LOADDEMO_BUFFER
+    "SaveDemo Buffer", // MEM_BUF_SAVEDEMO_BUFFER
+    "Cinematic Effects", // MEM_BUF_CINEMATIC_EFFECTS
+    "Mummy Head Turn", // MEM_BUF_MUMMY_HEAD_TURN
+    "Extra Door stuff", // MEM_BUF_EXTRA_DOOR_STUFF
+    "Effects_Array", // MEM_BUF_EFFECTS
+    "Creature Data", // MEM_BUF_CREATURE_DATA
+    "Creature LOT", // MEM_BUF_CREATURE_LOT
+    "Sample Infos", // MEM_BUF_SAMPLE_INFOS
+    "Samples", // MEM_BUF_SAMPLES
+    "Sample Offsets", // MEM_BUF_SAMPLE_OFFSETS
+    "Rolling Ball Stuff", // MEM_BUF_ROLLINGBALL_STUFF
 };
 
 void Memory_Init()
@@ -75,7 +75,7 @@ void Memory_Shutdown()
     m_GameAllocMemFree = 0;
 }
 
-void *Memory_Alloc(int32_t alloc_size, GAMEALLOC_BUFFER buf_index)
+void *Memory_Alloc(int32_t alloc_size, MEMORY_BUFFER buffer)
 {
     int32_t aligned_size;
 
@@ -83,7 +83,7 @@ void *Memory_Alloc(int32_t alloc_size, GAMEALLOC_BUFFER buf_index)
 
     if (aligned_size > m_GameAllocMemFree) {
         S_ExitSystemFmt(
-            "Memory_Alloc(): OUT OF MEMORY %s %d", m_BufferNames[buf_index],
+            "Memory_Alloc(): OUT OF MEMORY %s %d", m_BufferNames[buffer],
             aligned_size);
     }
 

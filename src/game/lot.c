@@ -13,12 +13,12 @@ static CREATURE_INFO *BaddieSlots = NULL;
 void InitialiseLOTArray()
 {
     BaddieSlots =
-        Memory_Alloc(NUM_SLOTS * sizeof(CREATURE_INFO), GBUF_CREATURE_DATA);
+        Memory_Alloc(NUM_SLOTS * sizeof(CREATURE_INFO), MEM_BUF_CREATURE_DATA);
     for (int i = 0; i < NUM_SLOTS; i++) {
         CREATURE_INFO *creature = &BaddieSlots[i];
         creature->item_num = NO_ITEM;
         creature->LOT.node =
-            Memory_Alloc(sizeof(BOX_NODE) * NumberBoxes, GBUF_CREATURE_LOT);
+            Memory_Alloc(sizeof(BOX_NODE) * NumberBoxes, MEM_BUF_CREATURE_LOT);
     }
     SlotsUsed = 0;
 }
@@ -173,7 +173,8 @@ void CreateZone(ITEM_INFO *item)
 
 int32_t InitialiseLOT(LOT_INFO *LOT)
 {
-    LOT->node = Memory_Alloc(sizeof(BOX_NODE) * NumberBoxes, GBUF_CREATURE_LOT);
+    LOT->node =
+        Memory_Alloc(sizeof(BOX_NODE) * NumberBoxes, MEM_BUF_CREATURE_LOT);
     ClearLOT(LOT);
     return 1;
 }

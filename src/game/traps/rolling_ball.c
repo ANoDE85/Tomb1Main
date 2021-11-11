@@ -24,7 +24,7 @@ void InitialiseRollingBall(int16_t item_num)
 {
     ITEM_INFO *item = &Items[item_num];
     GAME_VECTOR *old =
-        Memory_Alloc(sizeof(GAME_VECTOR), GBUF_ROLLINGBALL_STUFF);
+        Memory_Alloc(sizeof(GAME_VECTOR), MEM_BUF_ROLLINGBALL_STUFF);
     item->data = old;
     old->x = item->pos.x;
     old->y = item->pos.y;
