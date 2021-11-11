@@ -41,7 +41,7 @@ void S_ExitSystem(const char *message)
     while (Input.select) {
         S_UpdateInput();
     }
-    game_malloc_shutdown();
+    S_Memory_Shutdown();
     HWR_ShutdownHardware();
     ShowFatalError(message);
 }

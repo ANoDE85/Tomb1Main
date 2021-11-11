@@ -24,7 +24,7 @@ void SetupLightningEmitter(OBJECT_INFO *obj)
 
 void InitialiseLightning(int16_t item_num)
 {
-    LIGHTNING *l = game_malloc(sizeof(LIGHTNING), 0);
+    LIGHTNING *l = S_Memory_Alloc(sizeof(LIGHTNING), 0);
     Items[item_num].data = l;
 
     if (Objects[Items[item_num].object_number].nmeshes > 1) {

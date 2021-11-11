@@ -28,7 +28,7 @@ void InitialiseMummy(int16_t item_num)
     ITEM_INFO *item = &Items[item_num];
     item->touch_bits = 0;
     item->mesh_bits = 0xFFFF87FF;
-    item->data = game_malloc(sizeof(int16_t), GBUF_MUMMY_HEAD_TURN);
+    item->data = S_Memory_Alloc(sizeof(int16_t), GBUF_MUMMY_HEAD_TURN);
     *(int16_t *)item->data = 0;
 }
 

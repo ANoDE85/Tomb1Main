@@ -69,7 +69,7 @@ void InitialisePod(int16_t item_num)
 
         InitialiseItem(bug_item_num);
 
-        item->data = game_malloc(sizeof(int16_t), 0);
+        item->data = S_Memory_Alloc(sizeof(int16_t), 0);
         *(int16_t *)item->data = bug_item_num;
 
         LevelItemCount++;

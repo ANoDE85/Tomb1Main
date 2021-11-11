@@ -110,7 +110,7 @@ int32_t InitialiseLevel(int32_t level_num, GAMEFLOW_LEVEL_TYPE level_type)
         InitialiseLara();
     }
 
-    Effects = game_malloc(NUM_EFFECTS * sizeof(FX_INFO), GBUF_EFFECTS);
+    Effects = S_Memory_Alloc(NUM_EFFECTS * sizeof(FX_INFO), GBUF_EFFECTS);
     InitialiseFXArray();
     InitialiseLOTArray();
 

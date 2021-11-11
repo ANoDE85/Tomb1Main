@@ -248,14 +248,14 @@ cleanup:
 
 int32_t S_PlayFMV(int32_t sequence, int32_t mode)
 {
-    game_malloc_shutdown();
+    S_Memory_Shutdown();
 
     TempVideoAdjust(2);
     HWR_PrepareFMV();
 
     int32_t ret = WinPlayFMV(sequence, mode);
 
-    init_game_malloc();
+    S_Memory_Init();
 
     HWR_FMVDone();
     TempVideoRemove();

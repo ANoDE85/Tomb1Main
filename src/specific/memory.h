@@ -45,9 +45,9 @@ typedef enum GAMEALLOC_BUFFER {
     GBUF_ROLLINGBALL_STUFF,
 } GAMEALLOC_BUFFER;
 
-void init_game_malloc();
-void *game_malloc(int32_t alloc_size, GAMEALLOC_BUFFER buf_index);
-void game_free(int32_t free_size, int32_t type);
-void game_malloc_shutdown();
+void S_Memory_Init();
+void *S_Memory_Alloc(int32_t alloc_size, GAMEALLOC_BUFFER buf_index);
+void S_Memory_Free(int32_t free_size, int32_t type);
+void S_Memory_Shutdown();
 
 #endif

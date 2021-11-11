@@ -76,7 +76,7 @@ static void OpenThatDoor(DOORPOS_DATA *d)
 void InitialiseDoor(int16_t item_num)
 {
     ITEM_INFO *item = &Items[item_num];
-    DOOR_DATA *door = game_malloc(sizeof(DOOR_DATA), GBUF_EXTRA_DOOR_STUFF);
+    DOOR_DATA *door = S_Memory_Alloc(sizeof(DOOR_DATA), GBUF_EXTRA_DOOR_STUFF);
     item->data = door;
 
     int32_t dx = 0;
