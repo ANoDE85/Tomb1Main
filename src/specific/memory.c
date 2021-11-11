@@ -9,7 +9,6 @@
 
 static char *m_GameMemoryPointer = NULL;
 static char *m_GameAllocMemPointer = NULL;
-static uint32_t m_GameAllocMemUsed = 0;
 static uint32_t m_GameAllocMemFree = 0;
 
 static const char *m_BufferNames[] = {
@@ -64,7 +63,6 @@ void init_game_malloc()
 
     m_GameAllocMemPointer = m_GameMemoryPointer;
     m_GameAllocMemFree = MALLOC_SIZE;
-    m_GameAllocMemUsed = 0;
 }
 
 void game_malloc_shutdown()
@@ -75,7 +73,6 @@ void game_malloc_shutdown()
     m_GameMemoryPointer = NULL;
     m_GameAllocMemPointer = NULL;
     m_GameAllocMemFree = 0;
-    m_GameAllocMemUsed = 0;
 }
 
 void *game_malloc(int32_t alloc_size, GAMEALLOC_BUFFER buf_index)
@@ -92,7 +89,6 @@ void *game_malloc(int32_t alloc_size, GAMEALLOC_BUFFER buf_index)
 
     void *result = m_GameAllocMemPointer;
     m_GameAllocMemFree -= aligned_size;
-    m_GameAllocMemUsed += aligned_size;
     m_GameAllocMemPointer += aligned_size;
     return result;
 }
