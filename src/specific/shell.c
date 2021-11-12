@@ -18,13 +18,13 @@
 #include "specific/hwr.h"
 #include "specific/init.h"
 #include "specific/input.h"
+#include "specific/memory.h"
 #include "specific/output.h"
 #include "specific/smain.h"
 #include "specific/sndpc.h"
 
 #include <stdint.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 static const char *T1MGameflowPath = "cfg/Tomb1Main_gameflow.json5";
@@ -46,9 +46,9 @@ void GameMain()
     }
 
     for (int i = 0; i < arg_count; i++) {
-        free(args[i]);
+        S_Memory_Free(args[i]);
     }
-    free(args);
+    S_Memory_Free(args);
 
     S_InitialiseSystem();
 

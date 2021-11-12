@@ -3,6 +3,13 @@
 
 #include <stdint.h>
 
+// Internal game memory manager. It allocates its internal buffer once per
+// level launch. All subsequent "allocation" requests operate with pointer
+// arithmetic. This makes it fast and convenient to request more memory as we
+// go, but it makes freeing memory really inconvenient which is why it is
+// intentionally not implemented. To use more dynamic memory management, use
+// S_Memory_Alloc / S_Memory_Free.
+
 typedef enum MEMORY_BUFFER {
     MEM_BUF_TEXTURE_PAGES,
     MEM_BUF_OBJECT_TEXTURES,
@@ -47,7 +54,6 @@ typedef enum MEMORY_BUFFER {
 
 void Memory_Init();
 void *Memory_Alloc(int32_t alloc_size, MEMORY_BUFFER buffer);
-void Memory_Free(int32_t free_size, int32_t type);
 void Memory_Shutdown();
 
 #endif

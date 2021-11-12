@@ -7,6 +7,7 @@
 #include "game/game.h"
 #include "game/inv.h"
 #include "game/lara.h"
+#include "game/memory.h"
 #include "game/savegame.h"
 #include "game/settings.h"
 #include "global/const.h"
@@ -16,11 +17,11 @@
 #include "specific/display.h"
 #include "specific/file.h"
 #include "specific/frontend.h"
+#include "specific/memory.h"
 #include "specific/output.h"
 #include "specific/sndpc.h"
 
 #include <limits.h>
-#include <stdlib.h>
 #include <string.h>
 
 typedef struct {
@@ -237,7 +238,7 @@ static int8_t GF_LoadLevelSequence(struct json_object_s *obj, int32_t level_num)
     struct json_array_element_s *jseq_elem = jseq_arr->start;
 
     GF.levels[level_num].sequence =
-        malloc(sizeof(GAMEFLOW_SEQUENCE) * (jseq_arr->length + 1));
+        S_Memory_Alloc(sizeof(GAMEFLOW_SEQUENCE) * (jseq_arr->length + 1));
 
     GAMEFLOW_SEQUENCE *seq = GF.levels[level_num].sequence;
     int32_t i = 0;
@@ -295,7 +296,7 @@ static int8_t GF_LoadLevelSequence(struct json_object_s *obj, int32_t level_num)
             seq->type = GFS_DISPLAY_PICTURE;
 
             GAME_FLOW_DISPLAY_PICTURE_DATA *data =
-                malloc(sizeof(GAME_FLOW_DISPLAY_PICTURE_DATA));
+                S_Memory_Alloc(sizeof(GAME_FLOW_DISPLAY_PICTURE_DATA));
             if (!data) {
                 LOG_ERROR("failed to allocate memory");
                 return 0;
@@ -443,7 +444,7 @@ static int8_t GF_LoadLevelSequence(struct json_object_s *obj, int32_t level_num)
             seq->type = GFS_MESH_SWAP;
 
             GAME_FLOW_MESH_SWAP_DATA *swap_data =
-                malloc(sizeof(GAME_FLOW_MESH_SWAP_DATA));
+                S_Memory_Alloc(sizeof(GAME_FLOW_MESH_SWAP_DATA));
             if (!swap_data) {
                 LOG_ERROR("failed to allocate memory");
                 return 0;
@@ -507,13 +508,13 @@ static int8_t S_LoadScriptLevels(struct json_object_s *obj)
 
     int32_t level_count = jlvl_arr->length;
 
-    GF.levels = malloc(sizeof(GAMEFLOW_LEVEL) * level_count);
+    GF.levels = S_Memory_Alloc(sizeof(GAMEFLOW_LEVEL) * level_count);
     if (!GF.levels) {
         LOG_ERROR("failed to allocate memory");
         return 0;
     }
 
-    SaveGame.start = malloc(sizeof(START_INFO) * level_count);
+    SaveGame.start = S_Memory_Alloc(sizeof(START_INFO) * level_count);
     if (!SaveGame.start) {
         LOG_ERROR("failed to allocate memory");
         return 0;
@@ -751,7 +752,7 @@ static int8_t S_LoadGameFlow(const char *file_name)
 
     size_t script_data_size = FileSize(fp);
 
-    script_data = malloc(script_data_size + 1);
+    script_data = S_Memory_Alloc(script_data_size + 1);
     if (!script_data) {
         LOG_ERROR("failed to allocate memory");
         goto cleanup;
@@ -788,7 +789,7 @@ cleanup:
         json_value_free(root);
     }
     if (script_data) {
-        free(script_data);
+        S_Memory_Free(script_data);
     }
     return result;
 }

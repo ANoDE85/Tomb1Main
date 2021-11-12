@@ -1,8 +1,8 @@
 #include "dynarray.h"
 
 #include "specific/init.h"
+#include "specific/memory.h"
 
-#include <stdlib.h>
 #include <string.h>
 
 struct DYNARRAY {
@@ -14,7 +14,7 @@ struct DYNARRAY {
 
 DYNARRAY *DynArray_Create(size_t elem_size)
 {
-    DYNARRAY *arr = malloc(sizeof(DYNARRAY));
+    DYNARRAY *arr = S_Memory_Alloc(sizeof(DYNARRAY));
     arr->data = NULL;
     arr->size = 0;
     arr->used = 0;
@@ -38,7 +38,7 @@ const void *DynArray_Get(DYNARRAY *arr, size_t idx)
 void DynArray_Reset(DYNARRAY *arr)
 {
     if (arr->data) {
-        free(arr->data);
+        S_Memory_Free(arr->data);
     }
     arr->data = NULL;
     arr->used = 0;
@@ -53,10 +53,7 @@ void DynArray_Append(DYNARRAY *arr, const void *element)
         } else {
             arr->size = arr->size * 3 / 2;
         }
-        arr->data = realloc(arr->data, arr->size * arr->elem_size);
-        if (!arr->data) {
-            S_ExitSystem("Failed to allocate memory");
-        }
+        arr->data = S_Memory_Realloc(arr->data, arr->size * arr->elem_size);
     }
     memcpy(arr->data + arr->used * arr->elem_size, element, arr->elem_size);
     arr->used++;
@@ -65,7 +62,7 @@ void DynArray_Append(DYNARRAY *arr, const void *element)
 void DynArray_Free(DYNARRAY *arr)
 {
     if (arr->data) {
-        free(arr->data);
+        S_Memory_Free(arr->data);
     }
     arr->data = NULL;
     arr->used = 0;

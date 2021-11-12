@@ -5,8 +5,8 @@
 #include "global/vars.h"
 #include "json.h"
 #include "log.h"
+#include "specific/memory.h"
 
-#include <stdlib.h>
 #include <string.h>
 #include <windows.h>
 
@@ -194,12 +194,7 @@ int8_t T1MReadConfig()
 
     size_t cfg_data_size = FileSize(fp);
 
-    cfg_data = malloc(cfg_data_size + 1);
-    if (!cfg_data) {
-        LOG_ERROR("Failed to allocate memory");
-        result = T1MReadConfigFromJson("");
-        goto cleanup;
-    }
+    cfg_data = S_Memory_Alloc(cfg_data_size + 1);
     FileRead(cfg_data, 1, cfg_data_size, fp);
     cfg_data[cfg_data_size] = '\0';
     FileClose(fp);

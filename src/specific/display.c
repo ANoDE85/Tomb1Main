@@ -8,8 +8,6 @@
 #include "global/vars_platform.h"
 #include "specific/hwr.h"
 
-#include <stdlib.h>
-
 // The screen resolution is controlled by two variables that are indices within
 // an array of predefined screen resolutions.
 // Actual screen resolution, sometimes different from the game resolution

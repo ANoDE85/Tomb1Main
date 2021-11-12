@@ -13,11 +13,11 @@
 #include "specific/file.h"
 #include "specific/frontend.h"
 #include "specific/hwr.h"
+#include "specific/memory.h"
 #include "specific/smain.h"
 
 #include <assert.h>
 #include <math.h>
-#include <stdlib.h>
 #include <string.h>
 
 #define VISIBLE(vn1, vn2, vn3)                                                                            \
@@ -218,8 +218,7 @@ static bool DecompPCX(const char *pcx, size_t pcx_size, PICTURE *pic)
         return false;
     }
 
-    pic->data = malloc(pic->width * pic->height * sizeof(RGB888));
-    assert(pic->data);
+    pic->data = S_Memory_Alloc(pic->width * pic->height * sizeof(RGB888));
 
     RGB888 pal[256];
     {
@@ -281,12 +280,12 @@ void S_DisplayPicture(const char *file_stem)
         LOG_ERROR("failed to decompress PCX %s", file_path);
     }
 
-    free(file_data);
+    S_Memory_Free(file_data);
 
     HWR_DownloadPicture(&pic);
 
     if (pic.data) {
-        free(pic.data);
+        S_Memory_Free(pic.data);
     }
 }
 

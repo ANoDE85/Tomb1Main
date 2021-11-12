@@ -17,7 +17,6 @@
 #include "specific/smain.h"
 
 #include <dinput.h>
-#include <stdlib.h>
 
 const char *FMVPaths[] = {
     "fmv\\cafe.rpl",    "fmv\\mansion.rpl", "fmv\\snow.rpl",

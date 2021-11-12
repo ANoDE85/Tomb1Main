@@ -1,5 +1,6 @@
 #include "log.h"
 
+#include <assert.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <windows.h>
@@ -30,6 +31,8 @@ void T1MPrintStackTrace()
     IMAGEHLP_SYMBOL64 *pSymbol =
         malloc(sizeof(IMAGEHLP_SYMBOL64) + (MaxNameLen + 1) * sizeof(TCHAR));
     char *name = malloc(MaxNameLen + 1);
+    assert(pSymbol);
+    assert(name);
 
     RtlCaptureContext(&context);
     memset(&stack, 0, sizeof(STACKFRAME64));

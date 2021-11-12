@@ -1,9 +1,7 @@
 #include "game/memory.h"
 
 #include "specific/init.h"
-
-#include <stdlib.h>
-#include <string.h>
+#include "specific/memory.h"
 
 #define MALLOC_SIZE 0x1000000 // 16 MB
 
@@ -55,21 +53,14 @@ static const char *m_BufferNames[] = {
 
 void Memory_Init()
 {
-    m_GameMemoryPointer = malloc(MALLOC_SIZE);
-    if (!m_GameMemoryPointer) {
-        S_ExitSystem("ERROR: Could not allocate enough memory");
-    }
-    memset(m_GameMemoryPointer, 0, MALLOC_SIZE);
-
+    m_GameMemoryPointer = S_Memory_Alloc(MALLOC_SIZE);
     m_GameAllocMemPointer = m_GameMemoryPointer;
     m_GameAllocMemFree = MALLOC_SIZE;
 }
 
 void Memory_Shutdown()
 {
-    if (m_GameMemoryPointer) {
-        free(m_GameMemoryPointer);
-    }
+    S_Memory_Free(m_GameMemoryPointer);
     m_GameMemoryPointer = NULL;
     m_GameAllocMemPointer = NULL;
     m_GameAllocMemFree = 0;
@@ -91,11 +82,4 @@ void *Memory_Alloc(int32_t alloc_size, MEMORY_BUFFER buffer)
     m_GameAllocMemFree -= aligned_size;
     m_GameAllocMemPointer += aligned_size;
     return result;
-}
-
-void Memory_Free(int32_t free_size, int32_t type)
-{
-    m_GameAllocMemPointer -= free_size;
-    m_GameAllocMemFree += free_size;
-    m_GameAllocMemPointer -= free_size;
 }

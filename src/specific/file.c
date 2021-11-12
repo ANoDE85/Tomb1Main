@@ -10,6 +10,7 @@
 #include "log.h"
 #include "specific/hwr.h"
 #include "specific/init.h"
+#include "specific/memory.h"
 #include "specific/smain.h"
 #include "specific/sndpc.h"
 
@@ -575,19 +576,18 @@ static bool LoadSamples(MYFILE *fp)
         return false;
     }
 
-    int32_t *sample_offsets =
-        Memory_Alloc(sizeof(int32_t) * num_samples, MEM_BUF_SAMPLE_OFFSETS);
+    int32_t *sample_offsets = S_Memory_Alloc(sizeof(int32_t) * num_samples);
     FileRead(sample_offsets, sizeof(int32_t), num_samples, fp);
 
-    char **sample_pointers =
-        Memory_Alloc(sizeof(char *) * num_samples, MEM_BUF_SAMPLE_OFFSETS);
+    char **sample_pointers = S_Memory_Alloc(sizeof(char *) * num_samples);
     for (int i = 0; i < num_samples; i++) {
         sample_pointers[i] = sample_data + sample_offsets[i];
     }
 
     SoundLoadSamples(sample_pointers, num_samples);
 
-    Memory_Free(sizeof(char *) * num_samples, MEM_BUF_SAMPLE_OFFSETS);
+    S_Memory_Free(sample_offsets);
+    S_Memory_Free(sample_pointers);
 
     return true;
 }
@@ -660,7 +660,7 @@ void FileLoad(const char *path, char **output_data, size_t *output_size)
     }
 
     size_t data_size = FileSize(fp);
-    char *data = malloc(data_size);
+    char *data = S_Memory_Alloc(data_size);
     if (!data) {
         ShowFatalError("Failed to allocate memory");
         return;

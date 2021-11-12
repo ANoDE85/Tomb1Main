@@ -6,9 +6,9 @@
 #include "global/vars_platform.h"
 #include "log.h"
 #include "specific/init.h"
+#include "specific/memory.h"
 
 #include <math.h>
-#include <stdlib.h>
 
 #define DECIBEL_LUT_SIZE 512
 
@@ -127,7 +127,8 @@ void *SoundPlaySample(
                 return NULL;
             }
 
-            DUPE_SOUND_BUFFER *dupe_buffer = malloc(sizeof(DUPE_SOUND_BUFFER));
+            DUPE_SOUND_BUFFER *dupe_buffer =
+                S_Memory_Alloc(sizeof(DUPE_SOUND_BUFFER));
             dupe_buffer->buffer = buffer_new;
             dupe_buffer->next = DupeSoundBufferList;
             DupeSoundBufferList = dupe_buffer;
@@ -239,7 +240,7 @@ void SoundLoadSamples(char **sample_pointers, int32_t num_samples)
     }
 
     NumSampleData = num_samples;
-    SampleData = malloc(sizeof(SAMPLE_DATA *) * num_samples);
+    SampleData = S_Memory_Alloc(sizeof(SAMPLE_DATA *) * num_samples);
     for (int i = 0; i < NumSampleData; i++) {
         SampleData[i] = SoundLoadSample(sample_pointers[i]);
     }
@@ -253,7 +254,7 @@ SAMPLE_DATA *SoundLoadSample(char *content)
         return NULL;
     }
 
-    SAMPLE_DATA *sample_data = malloc(sizeof(SAMPLE_DATA));
+    SAMPLE_DATA *sample_data = S_Memory_Alloc(sizeof(SAMPLE_DATA));
     memset(sample_data, 0, sizeof(SAMPLE_DATA));
     sample_data->data = content + sizeof(WAVE_FILE_HEADER);
     sample_data->length =

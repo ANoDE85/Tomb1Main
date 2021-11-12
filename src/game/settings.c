@@ -11,10 +11,10 @@
 #include "log.h"
 #include "specific/display.h"
 #include "specific/input.h"
+#include "specific/memory.h"
 #include "specific/sndpc.h"
 
 #include <stdint.h>
-#include <stdlib.h>
 #include <string.h>
 
 static const char *ATIUserSettingsPath = "atiset.dat";
@@ -146,7 +146,7 @@ static int32_t S_ReadUserSettingsT1M()
     }
 
     cfg_data_size = FileSize(fp);
-    cfg_data = malloc(cfg_data_size + 1);
+    cfg_data = S_Memory_Alloc(cfg_data_size + 1);
     if (!cfg_data) {
         LOG_ERROR("Failed to allocate memory");
         result = S_ReadUserSettingsT1MFromJson("");
@@ -164,7 +164,7 @@ cleanup:
         FileClose(fp);
     }
     if (cfg_data) {
-        free(cfg_data);
+        S_Memory_Free(cfg_data);
     }
     return result;
 }
@@ -208,7 +208,7 @@ static int32_t S_WriteUserSettingsT1M()
 
     FileWrite(data, sizeof(char), size - 1, fp);
     FileClose(fp);
-    free(data);
+    S_Memory_Free(data);
 
     return 1;
 }
